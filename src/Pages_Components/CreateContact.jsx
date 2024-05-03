@@ -2,8 +2,48 @@ import NavigationBar from "./nav";
 import { RiContactsLine } from "react-icons/ri";
 import { IoIosCreate } from "react-icons/io";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
+import { useState } from "react";
+import axiosClient from "../utils/axiosSetup";
+import { useNavigate } from "react-router";
 
 const CreateContacts = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [createLoading, setCreateLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const create = async () => {
+    setCreateLoading(true);
+
+    if (firstName.trim() && phoneNumber.trim() && lastName.trim()) {
+      try {
+        const response = await axiosClient.post("/api/create", {
+          firstName,
+          lastName,
+          phoneNumber,
+        });
+
+        if (response.status === 201) {
+          // Then reset everything back to default
+          setPhoneNumber("");
+          setFirstName("");
+          setLastName("");
+
+          setCreateLoading(false);
+
+          navigate("/contacts");
+        } else {
+          throw new Error("Something went wrong");
+        }
+      } catch (e) {
+        console.log(e);
+        setCreateLoading(false);
+      }
+    }
+  };
+
   return (
     <>
       <NavigationBar />
@@ -23,10 +63,10 @@ const CreateContacts = () => {
                 required
                 placeholder=" "
                 id="firstName"
-                disabled={false}
-                //   value={}
+                disabled={createLoading}
+                value={firstName}
                 onChange={(e) => {
-                  console.log(e);
+                  setFirstName(e.target.value);
                 }}
                 className="h-10 rounded-xl ring-1 ring-purple-500 bg-blue-100 p-1 peer disabled:cursor-not-allowed disabled:bg-gray-600 disabled:ring-gray-600 disabled:text-gray-400"
               />
@@ -50,10 +90,10 @@ const CreateContacts = () => {
                 required
                 placeholder=" "
                 id="lastName"
-                disabled={false}
-                //   value={}
+                disabled={createLoading}
+                value={lastName}
                 onChange={(e) => {
-                  console.log(e);
+                  setLastName(e.target.value);
                 }}
                 className="h-10 rounded-xl ring-1 ring-purple-500 bg-blue-100 p-1 peer disabled:cursor-not-allowed disabled:bg-gray-600 disabled:ring-gray-600 disabled:text-gray-400"
               />
@@ -77,10 +117,10 @@ const CreateContacts = () => {
                 required
                 placeholder=" "
                 id="phoneNumber"
-                disabled={false}
-                //   value={}
+                disabled={createLoading}
+                value={phoneNumber}
                 onChange={(e) => {
-                  console.log(e);
+                  setPhoneNumber(e.target.value);
                 }}
                 className="h-10 rounded-xl ring-1 ring-purple-500 bg-blue-100 p-1 peer disabled:cursor-not-allowed disabled:bg-gray-600 disabled:ring-gray-600 disabled:text-gray-400"
               />
@@ -102,6 +142,12 @@ const CreateContacts = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
+                disabled={createLoading}
+                onClick={() => {
+                  if (!createLoading) {
+                    create();
+                  }
+                }}
                 className="flex-[0_1_800px] relative inline-flex items-center justify-center py-3 pl-4 pr-12 overflow-hidden font-semibold transition-all duration-150 ease-in-out rounded-2xl hover:pl-10 hover:pr-6  text-white bg-purple-500  group w-full mb-4 min-[420px]:mb-8"
               >
                 <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-black group-hover:h-full"></span>

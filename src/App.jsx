@@ -17,8 +17,11 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreateContacts />} />
           <Route path="/contacts" element={<ContactList />} />
-          <Route path="/contactdetails" element={<ContactDetails />} />
-          <Route path="/edit" element={<EditContact />} />
+          <Route
+            path="/contactdetails/:articleID"
+            element={<ContactDetails />}
+          />
+          <Route path="/edit/:articleID" element={<EditContact />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />
