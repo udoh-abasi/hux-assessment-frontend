@@ -1,8 +1,19 @@
-# React + Vite
+# Hux Ventures Fullstack Developer Assessment 2024 - FRONTEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This template provides a minimal setup to run the application.
 
-Currently, two official plugins are available:
+The app was built with React, Redux and TailwindCSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Assumptions:
+
+1. You have downloaded and installed Node.js (version 21 and above). You can confirm by running 'node --version'.
+
+2. You already have npm (version 10 and above) installed. You can confirm by running 'npm --version'.
+
+# To run the app:
+
+1. Clone the repository
+
+2. Install app dependencies by running 'npm install'
+
+3. Run the app with 'npm run dev'. The app should successfully run on 'localhost:5173'
