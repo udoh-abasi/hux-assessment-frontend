@@ -14,6 +14,7 @@ const NavigationBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Run this function to get the current user, so the app will have access to the current user at all times, no matter the page we navigate to
     const getUser = async () => {
       const response = await axiosClient.get("/api/user");
 
@@ -32,10 +33,12 @@ const NavigationBar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
+  // This will run to sign the user out
   const signOut = async () => {
     try {
       const response = await axiosClient.post("/api/logout");
       if (response.status == 200) {
+        // After the user has signed out, we update our redux store and push the user to the home page
         dispatch(userAction({ userEmail: null }));
         navigate("/");
       }

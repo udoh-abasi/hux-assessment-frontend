@@ -10,13 +10,17 @@ const ContactList = () => {
   const [allcontactsData, setAllCOntactData] = useState([]);
 
   useEffect(() => {
+    // On page refresh, or when we navigate to this page, we want to make this request to get all contacts saved by the user
     const getAllContacts = async () => {
       try {
         const response = await axiosClient.get("/api/allcontacts");
 
         const data = await response.data;
 
+        // If everything went well, set the data in a state
         setAllCOntactData(data);
+
+        // This will make the loader disappear
         setDataLoading(false);
       } catch (e) {
         setDataLoading(false);
@@ -26,11 +30,13 @@ const ContactList = () => {
     getAllContacts();
   }, []);
 
+  // When the 'delete' button is clicked, this function runs
   const deleteData = async (contactID) => {
     try {
       const response = await axiosClient.delete(`/api/delete/${contactID}`);
 
       if (response.status === 200) {
+        // If everything went well, we filter through the contacts and remove the deleted contact
         const newAllContactsData = allcontactsData.filter(
           (contact) => contact.id !== contactID
         );

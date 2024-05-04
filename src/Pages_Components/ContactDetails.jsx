@@ -6,36 +6,48 @@ import Loader from "./loader";
 
 const ContactDetails = () => {
   const navigate = useNavigate();
-  const { articleID } = useParams();
+
+  // We get the id from the URL parameters
+  const { contactID } = useParams();
 
   const [dataLoading, setDataLoading] = useState(true);
   const [contactDetails, setContactDetails] = useState(null);
 
   useEffect(() => {
+    // On page refresh, or when we navigate to this page, we want to make this request
     const getContactDetails = async () => {
       try {
+        // Get the the contact's details
         const response = await axiosClient.get(
-          `/api/contactdetails/${articleID}`
+          `/api/contactdetails/${contactID}`
         );
 
         const data = await response.data;
 
+        // set the contact's details in a state
         setContactDetails(data);
+
+        // This will make the loader disappear
         setDataLoading(false);
       } catch (e) {
         setDataLoading(false);
+
+        // If something went wrong, return the user to the home page
         navigate("/");
       }
     };
 
     getContactDetails();
-  }, [articleID, navigate]);
+  }, [contactID, navigate]);
 
+  // When the 'delete' button is clicked, this function runs
   const deleteContact = async (contactID) => {
     try {
+      // Send a request to delete the contact
       const response = await axiosClient.delete(`/api/delete/${contactID}`);
 
       if (response.status === 200) {
+        // If everything went well, take the user back to the page to see all contacts
         navigate("/contacts");
       }
     } catch (e) {
@@ -104,7 +116,7 @@ const ContactDetails = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    navigate(`/edit/${articleID}`);
+                    navigate(`/edit/${contactID}`);
                   }}
                   title="Edit"
                   className="hover:ring-indigo-500 ring-purple-500 ring-4 w-[140px] py-1 rounded-bl-2xl rounded-tr-2xl font-bold text-lg"
@@ -116,7 +128,7 @@ const ContactDetails = () => {
                   type="button"
                   title="Delete"
                   onClick={() => {
-                    deleteContact(articleID);
+                    deleteContact(contactID);
                   }}
                   className="ring-red-500 ring-4 w-[140px] py-1 rounded-bl-2xl rounded-tr-2xl font-bold text-lg text-red-500"
                 >

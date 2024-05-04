@@ -19,7 +19,7 @@ const SignUp = ({ setShowSignup }) => {
 
   const navigate = useNavigate();
 
-  // This function runs to sign up a user
+  // This function runs to sign up a new user
   const signUp = async () => {
     setSignUpLoading(true);
 
@@ -32,12 +32,14 @@ const SignUp = ({ setShowSignup }) => {
           });
 
           if (response.status === 201) {
+            // If everything went well, we send a request to log the user in
             const response = await axiosClient.post("/api/login", {
               email,
               password,
             });
 
             if (response.status === 200) {
+              // If everything went well, we send a request to get the logged in user
               const response = await axiosClient.get("/api/user");
 
               if (response.status === 200) {

@@ -11,10 +11,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigate, Outlet } from "react-router-dom";
 import { userSelector } from "./reduxFiles/selectors";
 
+// We want to protect some routes, so only logged in users can access those routes
 const PrivateRoute = () => {
   let user = useSelector(userSelector);
 
-  // So if we have a user we return the JSX, else we navigate to the home page
+  // So if we have a user we return the JSX of the nested route, else we navigate to the home page
   return user ? <Outlet /> : <Navigate to="/" replace />;
 };
 
@@ -33,15 +34,15 @@ function App() {
             <Route path="/contacts" element={<ContactList />} />
           </Route>
 
-          <Route path="/contactdetails/:articleID" element={<PrivateRoute />}>
+          <Route path="/contactdetails/:contactID" element={<PrivateRoute />}>
             <Route
-              path="/contactdetails/:articleID"
+              path="/contactdetails/:contactID"
               element={<ContactDetails />}
             />
           </Route>
 
-          <Route path="/edit/:articleID" element={<PrivateRoute />}>
-            <Route path="/edit/:articleID" element={<EditContact />} />
+          <Route path="/edit/:contactID" element={<PrivateRoute />}>
+            <Route path="/edit/:contactID" element={<EditContact />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

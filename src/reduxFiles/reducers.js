@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { userAction } from "./actions";
 
-// So, we set the initial value to an empty string or the user's data
+// So, we set the initial value to null
 const initialValue = { userEmail: null };
 
 export const userReducer = createReducer(initialValue, (builder) => {

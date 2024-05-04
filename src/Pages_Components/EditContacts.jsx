@@ -15,40 +15,46 @@ const EditContact = () => {
 
   const navigate = useNavigate();
 
-  const { articleID } = useParams();
+  // Get the contact's ID from the URL parameter
+  const { contactID } = useParams();
 
   useEffect(() => {
+    // On page load, this will run to get the contact the user wants to edit
     const getContactDetails = async () => {
       try {
         const response = await axiosClient.get(
-          `/api/contactdetails/${articleID}`
+          `/api/contactdetails/${contactID}`
         );
 
         const data = await response.data;
 
+        // If everything went well, set the data in the input fields
         setFirstName(data.firstName);
         setLastName(data.lastName);
         setPhoneNumber(data.phoneNumber);
         setEditLoading(false);
       } catch (e) {
+        // If anything went wrong, send the user back to the home page
         setEditLoading(false);
         navigate("/");
       }
     };
 
     getContactDetails();
-  }, [articleID, navigate]);
+  }, [contactID, navigate]);
 
+  // When the 'Save edit' button is clicked, this function runs to save the edited contact
   const saveEdit = async () => {
     try {
-      const response = await axiosClient.put(`/api/edit/${articleID}`, {
+      const response = await axiosClient.put(`/api/edit/${contactID}`, {
         firstName,
         lastName,
         phoneNumber,
       });
 
+      // If everything went well, we navigate the user back to see the details of the edited contact
       if (response.status === 200) {
-        navigate(`/contactdetails/${articleID}`);
+        navigate(`/contactdetails/${contactID}`);
       }
     } catch (e) {
       //

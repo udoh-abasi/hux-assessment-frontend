@@ -14,6 +14,7 @@ const CreateContacts = () => {
 
   const navigate = useNavigate();
 
+  // When the 'create' button is clicked, this function runs to create a new contact
   const create = async () => {
     setCreateLoading(true);
 
@@ -33,6 +34,7 @@ const CreateContacts = () => {
 
           setCreateLoading(false);
 
+          // Push to the user to the page to see all their contacts
           navigate("/contacts");
         } else {
           throw new Error("Something went wrong");

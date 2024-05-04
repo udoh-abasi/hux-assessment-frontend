@@ -6,7 +6,7 @@ const axiosClient = axios.create({
   xsrfCookieName: "csrftoken",
   xsrfHeaderName: "X-CSRFToken",
   withCredentials: true,
-  withXSRFToken: true, // NOTE: Without adding this, the csrf token will not be sent
+  withXSRFToken: true, // NOTE: Without adding this, the csrf token will not be sent to the backend
 });
 
 export default axiosClient;

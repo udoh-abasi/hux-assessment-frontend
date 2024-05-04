@@ -17,7 +17,7 @@ const Login = ({ setShowLogin }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // This function runs to sign up a user
+  // This function runs to log in a user
   const login = async () => {
     setLoginLoading(true);
 
@@ -32,6 +32,7 @@ const Login = ({ setShowLogin }) => {
           const response = await axiosClient.get("/api/user");
 
           if (response.status === 200) {
+            // If everything is OK, store the user in the redux, so that they will be available through out the entire app
             dispatch(userAction({ userEmail: await response.data.email }));
           }
 
@@ -43,6 +44,7 @@ const Login = ({ setShowLogin }) => {
           setShowLogin(false);
           setLoginLoading(false);
 
+          // Push the user to see all contacts they have saved
           navigate("/contacts");
         } else {
           throw new Error("Something went wrong");
