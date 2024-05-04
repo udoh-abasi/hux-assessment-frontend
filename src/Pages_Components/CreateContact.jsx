@@ -38,7 +38,6 @@ const CreateContacts = () => {
           throw new Error("Something went wrong");
         }
       } catch (e) {
-        console.log(e);
         setCreateLoading(false);
       }
     }

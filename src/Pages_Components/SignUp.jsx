@@ -31,21 +31,14 @@ const SignUp = ({ setShowSignup }) => {
             password,
           });
 
-          console.log(email, password);
-          console.log(await response.data);
-
           if (response.status === 201) {
             const response = await axiosClient.post("/api/login", {
               email,
               password,
             });
 
-            console.log("Login request", console.log(await response.data));
-
             if (response.status === 200) {
               const response = await axiosClient.get("/api/user");
-
-              console.log("Response in getting user", await response.data);
 
               if (response.status === 200) {
                 dispatch(userAction({ userEmail: await response.data.email }));
@@ -68,7 +61,6 @@ const SignUp = ({ setShowSignup }) => {
             throw new Error("Something went wrong");
           }
         } catch (e) {
-          console.log(e);
           setSignUpLoading(false);
         }
       }

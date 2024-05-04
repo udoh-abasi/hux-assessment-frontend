@@ -26,8 +26,6 @@ const EditContact = () => {
 
         const data = await response.data;
 
-        console.log(data);
-
         setFirstName(data.firstName);
         setLastName(data.lastName);
         setPhoneNumber(data.phoneNumber);

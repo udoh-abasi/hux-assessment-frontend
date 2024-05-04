@@ -20,8 +20,6 @@ const ContactDetails = () => {
 
         const data = await response.data;
 
-        console.log(data);
-
         setContactDetails(data);
         setDataLoading(false);
       } catch (e) {

@@ -104,12 +104,8 @@ const NavigationBar = () => {
             </Link>
           </li>
 
-          {showLogin ? <Login setShowLogin={setShowLogin} /> : <span></span>}
-          {showSignup ? (
-            <SignUp setShowSignup={setShowSignup} />
-          ) : (
-            <span></span>
-          )}
+          {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
+          {showSignup ? <SignUp setShowSignup={setShowSignup} /> : <></>}
         </ul>
       )}
     </nav>

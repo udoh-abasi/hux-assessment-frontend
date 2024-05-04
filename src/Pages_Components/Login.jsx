@@ -31,8 +31,6 @@ const Login = ({ setShowLogin }) => {
         if (response.status === 200) {
           const response = await axiosClient.get("/api/user");
 
-          console.log("Response in getting user", await response.data);
-
           if (response.status === 200) {
             dispatch(userAction({ userEmail: await response.data.email }));
           }
@@ -50,7 +48,6 @@ const Login = ({ setShowLogin }) => {
           throw new Error("Something went wrong");
         }
       } catch (e) {
-        console.log(e);
         setLoginLoading(false);
       }
     }

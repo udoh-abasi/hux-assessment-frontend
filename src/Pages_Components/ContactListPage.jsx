@@ -16,8 +16,6 @@ const ContactList = () => {
 
         const data = await response.data;
 
-        console.log(data);
-
         setAllCOntactData(data);
         setDataLoading(false);
       } catch (e) {
